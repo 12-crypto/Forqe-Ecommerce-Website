@@ -5,7 +5,7 @@ import { ShoppingCart } from '@material-ui/icons';
 import LoginDialog from '../login/Login.jsx';
 import { LoginContext } from '../../context/ContextProvider.jsx';
 // import { useSelector } from 'react-redux';
-// import Profile from './Profile';
+ import Profile from './Profile.jsx';
 
 const useStyle = makeStyles(theme => ({
     container: {
@@ -67,7 +67,7 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper}>
              {
-                account ? <Typography>{account}</Typography> : 
+                account ? <Profile account = {account} setAccount={setAccount}/> : 
                <Link>
                     <Button className={classes.login} variant="contained" onClick={() => openLoginDialog()} >Login</Button>
                 </Link>

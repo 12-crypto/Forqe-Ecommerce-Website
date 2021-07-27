@@ -1,6 +1,6 @@
-import  { useState } from 'react';
+import React , { useState,useEffect } from 'react';
 import { Box,Button, Dialog, DialogContent,makeStyles, TextField, Typography } from "@material-ui/core";
-import { authenticateSignup } from '../../service/api';
+import { authenticateSignup ,authenticateLogin} from '../../service/api.js';
 
 const useStyle = makeStyles({
     component: {
@@ -84,6 +84,12 @@ const accountInitialValues = {
         subHeading: 'Signup to get started'
     }
 };
+
+const loginInitialValues = {
+    username: '',
+    password: ''
+};
+
 const signupInitialValues = {
     firstname: '',
     lastname: '',
@@ -96,34 +102,35 @@ const signupInitialValues = {
 
 const Login = ({ open, setOpen, setAccount }) => {
     const classes = useStyle();
-    // const [ login, setLogin ] = useState(loginInitialValues);
+    const [ login, setLogin ] = useState(loginInitialValues);
     const [ signup, setSignup ] = useState(signupInitialValues);
-    // const [ error, showError] = useState(false);
+    const [ error, showError] = useState(false);
     const [ account, toggleAccount ] = useState(accountInitialValues.login);
 
-    // useEffect(() => {
-    //     showError(false);
-    // }, [login])
+    useEffect(() => {
+        showError(false);
+    }, [login])
 
-    // const onValueChange = (e) => {
-    //     setLogin({ ...login, [e.target.name]: e.target.value });
-    // }
+    const onValueChange = (e) => {
+        setLogin({ ...login, [e.target.name]: e.target.value });
+    }
 
      const onInputChange = (e) => {
          setSignup({ ...signup, [e.target.name]: e.target.value });
         console.log(signup);
     }
 
-    // const loginUser = async() => {
-    //     let response = await authenticateLogin(login);
-    //     if(!response) 
-    //         showError(true);
-    //     else {
-    //         showError(false);
-    //         handleClose();
-    //         setAccount(login.username);
-    //     }
-    // }
+    const loginUser = async() => {
+        let response = await authenticateLogin(login);
+        if(!response) 
+            showError(true);
+        else {
+            showError(false);
+            handleClose();
+            setAccount(login.username);
+        }
+    }
+
     const handleClose = () => {
         setOpen(false);
         toggleAccount(accountInitialValues.login);
@@ -156,11 +163,11 @@ const Login = ({ open, setOpen, setAccount }) => {
                     {
                         account.view === 'login' ? 
                         <Box className={classes.login}>
-                            <TextField  name='username' label='Enter Email/Mobile number' InputProps={{className: classes.multilineColor}} />
-                            <Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography> 
-                            <TextField  name='password' label='Enter Password' InputProps={{className: classes.multilineColor}} />
+                            <TextField  onChange={(e) => onValueChange(e)} name='username' label='Enter Username' InputProps={{className: classes.multilineColor}} />
+                            {error &&< Typography  className={classes.error}>Please enter valid Username</Typography>} 
+                            <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' InputProps={{className: classes.multilineColor}} />
                             <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
-                            <Button className={classes.loginbtn} style={{background:'#FB641B'}} >Login</Button>
+                            <Button className={classes.loginbtn} style={{background:'#FB641B'}} onClick={ () => loginUser()} >Login</Button>
                             <Typography className={classes.text} style={{textAlign:'center'}}>OR</Typography>
                             <Button className={classes.requestbtn} style={{background:'#fff'}}>Request OTP</Button>
                             <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
