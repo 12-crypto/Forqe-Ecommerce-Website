@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { makeStyles, Box, Typography, Badge, Button } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from '@material-ui/icons';
-import LoginDialog from '../Login/Login';
-// import { LoginContext } from '../../context/ContextProvider';
+import LoginDialog from '../login/Login.jsx';
+import { LoginContext } from '../../context/ContextProvider.jsx';
 // import { useSelector } from 'react-redux';
 // import Profile from './Profile';
 
@@ -54,8 +54,8 @@ const useStyle = makeStyles(theme => ({
 
 const CustomButtons = () => {
     const classes = useStyle();
-     const [ open, setOpen ] = useState(false);
-    // const { account, setAccount } = useContext(LoginContext);
+    const [ open, setOpen ] = useState(false);
+    const { account, setAccount } = useContext(LoginContext);
 
     // const cartDetails = useSelector(state => state.cart);
     // const { cartItems } = cartDetails;
@@ -67,7 +67,7 @@ const CustomButtons = () => {
     return (
         <Box className={classes.wrapper}>
              {
-               // account ? <Profile account={account} setAccount={setAccount} /> : 
+                account ? <Typography>{account}</Typography> : 
                <Link>
                     <Button className={classes.login} variant="contained" onClick={() => openLoginDialog()} >Login</Button>
                 </Link>
@@ -81,7 +81,7 @@ const CustomButtons = () => {
                 </Badge>
                 <Typography style={{ marginLeft: 10 }}>Cart</Typography>
                </Link> 
-            <LoginDialog open={open} setOpen={setOpen}  /> 
+            <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} /> 
         </Box>
     )
 }

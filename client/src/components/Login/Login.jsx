@@ -1,9 +1,10 @@
-import  { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import { Box,Button, Dialog, DialogContent,makeStyles, TextField, Typography } from "@material-ui/core";
+import { authenticateSignup } from '../../service/api';
 
 const useStyle = makeStyles({
     component: {
-        height: '70vh',
+        height: '75vh',
         width: '75vh',
         background:'#ffbb00'
         
@@ -14,9 +15,9 @@ const useStyle = makeStyles({
         background: 'black',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
-        height: '55vh',
+        height: '60vh',
         width: '30%',
-        padding: '45px 35px',
+        padding: '45px 45px',
         '& > *': {
             color: '#FFFFFF',
             fontWeight: 600
@@ -59,13 +60,13 @@ const useStyle = makeStyles({
         color: '#878787',
         fontSize: 12
     },
-    // error: {
-    //     fontSize: 11,
-    //     color: '#ff6161',
-    //     lineHeight: 0,
-    //     marginTop: 10,
-    //     fontWeight: 600
-    // },
+    error: {
+        fontSize: 10,
+        color: '#ff6161',
+        lineHeight: 0,
+        marginTop: 10,
+        fontWeight: 600
+    },
     multilineColor:{
         color:'black'
     }
@@ -82,12 +83,21 @@ const accountInitialValues = {
         heading: "Looks like you're new here",
         subHeading: 'Signup to get started'
     }
-}
+};
+const signupInitialValues = {
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+    phone: ''
+};
+
 
 const Login = ({ open, setOpen, setAccount }) => {
     const classes = useStyle();
     // const [ login, setLogin ] = useState(loginInitialValues);
-    // const [ signup, setSignup ] = useState(signupInitialValues);
+    const [ signup, setSignup ] = useState(signupInitialValues);
     // const [ error, showError] = useState(false);
     const [ account, toggleAccount ] = useState(accountInitialValues.login);
 
@@ -99,9 +109,10 @@ const Login = ({ open, setOpen, setAccount }) => {
     //     setLogin({ ...login, [e.target.name]: e.target.value });
     // }
 
-    // const onInputChange = (e) => {
-    //     setSignup({ ...signup, [e.target.name]: e.target.value });
-    // }
+     const onInputChange = (e) => {
+         setSignup({ ...signup, [e.target.name]: e.target.value });
+        console.log(signup);
+    }
 
     // const loginUser = async() => {
     //     let response = await authenticateLogin(login);
@@ -113,22 +124,25 @@ const Login = ({ open, setOpen, setAccount }) => {
     //         setAccount(login.username);
     //     }
     // }
-
-    // const signupUser = async() => {
-    //     let response = await authenticateSignup(signup);
-    //     if(!response) return;
-    //     handleClose();
-    //     setAccount(signup.username);
-    // }
-    
-    const toggleSignup = () => {
-        toggleAccount(accountInitialValues.signup);
-    }
-
     const handleClose = () => {
         setOpen(false);
         toggleAccount(accountInitialValues.login);
     }
+
+    const toggleSignup = () => {
+        toggleAccount(accountInitialValues.signup);
+    }
+    
+    const signupUser = async() => {
+        let response = await authenticateSignup(signup);
+        if(!response) return;
+        handleClose();
+        setAccount(signup.username);
+    }
+    
+    
+
+    
     return (
 
         <Dialog open={open} onClose={handleClose}>
@@ -143,7 +157,7 @@ const Login = ({ open, setOpen, setAccount }) => {
                         account.view === 'login' ? 
                         <Box className={classes.login}>
                             <TextField  name='username' label='Enter Email/Mobile number' InputProps={{className: classes.multilineColor}} />
-                            {/*<Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography> */}
+                            <Typography className={classes.error}>Please enter valid Email ID/Mobile number</Typography> 
                             <TextField  name='password' label='Enter Password' InputProps={{className: classes.multilineColor}} />
                             <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
                             <Button className={classes.loginbtn} style={{background:'#FB641B'}} >Login</Button>
@@ -152,13 +166,13 @@ const Login = ({ open, setOpen, setAccount }) => {
                             <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
                         </Box> : 
                         <Box className={classes.login}>
-                            <TextField  name='firstname' label='Enter Firstname' />
-                            <TextField  name='lastname' label='Enter Lastname' />
-                            <TextField  name='username' label='Enter Username' />
-                            <TextField  name='email' label='Enter Email' />
-                            <TextField  name='password' label='Enter Password' />
-                            <TextField  name='phone' label='Enter Phone' />
-                            <Button className={classes.loginbtn} >Continue</Button>
+                            <TextField onChange={(e) => onInputChange(e)} name='firstname' label='Enter Firstname' />
+                            <TextField onChange={(e) => onInputChange(e)} name='lastname' label='Enter Lastname' />
+                            <TextField onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
+                            <TextField onChange={(e) => onInputChange(e)} name='email' label='Enter Email' />
+                            <TextField onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+                            <TextField onChange={(e) => onInputChange(e)} name='phone' label='Enter Phone' />
+                            <Button className={classes.loginbtn} style={{background:'black'}} onClick={ () => signupUser()}>Continue</Button>
                         </Box>
                     }
                 </Box>
@@ -168,4 +182,4 @@ const Login = ({ open, setOpen, setAccount }) => {
 
     )
 }
-export default Login
+export default Login;
