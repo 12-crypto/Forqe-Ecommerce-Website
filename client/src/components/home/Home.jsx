@@ -5,6 +5,12 @@ import Banner from "./Banner";
 import Slide from "./Slide";
 import MidSection from './Midsection';
 
+// import { products } from '../../constants/data';
+import {useSelector,useDispatch} from 'react-redux';
+import { useEffect } from 'react';
+import { getProducts  as listProducts } from '../../redux/actions/productActions.js'
+
+
 const useStyle = makeStyles({
     component: {
         padding: 10,
@@ -24,7 +30,16 @@ const Home = () => {
     const classes = useStyle();
     const addURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
 
+    const {products} = useSelector(state => state.getProducts)
 
+    const dispatch =  useDispatch();
+
+    useEffect(() => {
+        dispatch(listProducts())
+
+    }, [dispatch])
+    
+   
     return (
         <div>
             <NavBar />
@@ -35,6 +50,7 @@ const Home = () => {
                     <Slide 
                         timer={true}
                         title="Deal of the Day"
+                        products={products}
                     />
                 </Box>
                 <Box className={classes.rightWrapper}>
@@ -42,11 +58,11 @@ const Home = () => {
                 </Box>
             </Box>
             <MidSection />
-            <Slide timer={false} title="Discounts For You"/>
-            <Slide timer={false} title="Suggested Items"/>
-            <Slide timer={false} title="Top Selection"/>
-            <Slide timer={false} title="Recommended Items"/>
-            <Slide timer={false} title="Best Sellers"/>
+            <Slide timer={false} title="Discounts For You" products={products} />
+            <Slide timer={false} title="Suggested Items"products={products} />
+            <Slide timer={false} title="Top Selection" products={products} />
+            <Slide timer={false} title="Recommended Items" products={products} />
+            <Slide timer={false} title="Best Sellers" products={products} />
             </Box>
 
         </div>
