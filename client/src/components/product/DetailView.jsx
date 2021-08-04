@@ -65,7 +65,7 @@ const DetailView= ({ match }) => {
 
     useEffect(() => {
         dispatch(getProductDetails(match.params.id));
-    }, [dispatch])
+    }, [dispatch,match])
 
     return (
         <Box className={classes.component}>

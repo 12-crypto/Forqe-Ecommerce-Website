@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart } from '@material-ui/icons';
 import LoginDialog from '../login/Login.jsx';
 import { LoginContext } from '../../context/ContextProvider.jsx';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
  import Profile from './Profile.jsx';
 
 const useStyle = makeStyles(theme => ({
@@ -57,8 +57,8 @@ const CustomButtons = () => {
     const [ open, setOpen ] = useState(false);
     const { account, setAccount } = useContext(LoginContext);
 
-    // const cartDetails = useSelector(state => state.cart);
-    // const { cartItems } = cartDetails;
+     const cartDetails = useSelector(state => state.cart);
+     const { cartItems } = cartDetails;
 
     const openLoginDialog = () => {
         setOpen(true);
@@ -76,7 +76,7 @@ const CustomButtons = () => {
                 <Typography style={{ marginTop: 2 }}>More</Typography>
             </Link>
                 <Link to='/cart' className={classes.container}>
-                <Badge  color="secondary">
+                <Badge  badgeContent={cartItems.length} color="secondary">
                     <ShoppingCart />
                 </Badge>
                 <Typography style={{ marginLeft: 10 }}>Cart</Typography>
