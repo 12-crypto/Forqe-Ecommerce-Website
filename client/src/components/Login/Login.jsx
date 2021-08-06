@@ -4,8 +4,9 @@ import { authenticateSignup ,authenticateLogin} from '../../service/api.js';
 
 const useStyle = makeStyles({
     component: {
-        height: '75vh',
-        width: '75vh',
+        height: '70vh',
+        width: '90vh',
+        maxWidth: 'unset !important',
         background:'#ffbb00'
         
 
@@ -15,9 +16,9 @@ const useStyle = makeStyles({
         background: 'black',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
-        height: '60vh',
-        width: '30%',
-        padding: '45px 45px',
+        height: '70vh',
+        width: '40%',
+        padding: '45px 35px',
         '& > *': {
             color: '#FFFFFF',
             fontWeight: 600
@@ -166,11 +167,11 @@ const Login = ({ open, setOpen, setAccount }) => {
                             <TextField  onChange={(e) => onValueChange(e)} name='username' label='Enter Username' InputProps={{className: classes.multilineColor}} />
                             {error &&< Typography  className={classes.error}>Please enter valid Username</Typography>} 
                             <TextField onChange={(e) => onValueChange(e)} name='password' label='Enter Password' InputProps={{className: classes.multilineColor}} />
-                            <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
+                            <Typography className={classes.text}>By continuing, you agree to Foreqe's Terms of Use and Privacy Policy.</Typography>
                             <Button className={classes.loginbtn} style={{background:'#FB641B'}} onClick={ () => loginUser()} >Login</Button>
                             <Typography className={classes.text} style={{textAlign:'center'}}>OR</Typography>
                             <Button className={classes.requestbtn} style={{background:'#fff'}}>Request OTP</Button>
-                            <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Flipkart? Create an account</Typography>
+                            <Typography className={classes.createText} onClick={() => toggleSignup()}>New to Foreqe? Create an account</Typography>
                         </Box> : 
                         <Box className={classes.login}>
                             <TextField onChange={(e) => onInputChange(e)} name='firstname' label='Enter Firstname' />

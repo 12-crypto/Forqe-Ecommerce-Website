@@ -1,5 +1,10 @@
 import { makeStyles, fade, InputBase, List, ListItem } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'; // hooks
+import { getProducts as listProducts } from '../../redux/actions/productActions';
+import { Link } from 'react-router-dom';
+
 
 const useStyle = makeStyles(theme => ({
     search: {
@@ -34,22 +39,22 @@ const useStyle = makeStyles(theme => ({
 
 const Search = () => {
     const classes = useStyle();
-    // const [ text, setText ] = useState();
-    // const [ open, setOpen ] = useState(true)
+    const [ text, setText ] = useState();
+    const [ open, setOpen ] = useState(true)
 
-    // const getText = (text) => {
-    //     setText(text);
-    //     setOpen(false)
-    // }
+    const getText = (text) => {
+        setText(text);
+        setOpen(false)
+    }
 
-    // const getProducts = useSelector(state => state.getProducts);
-    // const { products } = getProducts;
+    const getProducts = useSelector(state => state.getProducts);
+    const { products } = getProducts;
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(listProducts())
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
 
     return (
         <div className={classes.search}>
@@ -60,12 +65,12 @@ const Search = () => {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-            //   onChange={(e) => getText(e.target.value)}
+              onChange={(e) => getText(e.target.value)}
             />
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            {/* {
+            {
               text && 
               <List className={classes.list} hidden={open}>
                 {
@@ -82,7 +87,7 @@ const Search = () => {
                   ))
                 }  
               </List>
-            } */}
+            }
         </div>
     )
 }

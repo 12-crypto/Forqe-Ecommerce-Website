@@ -11,20 +11,27 @@ import { useEffect } from 'react';
 import { getProducts  as listProducts } from '../../redux/actions/productActions.js'
 
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme=>({
     component: {
         padding: 10,
         background: '#171717'
+    },
+    leftwrapper:{
+        [theme.breakpoints.down('md')]: {
+            width: '100%'
+        }
     },
     rightWrapper: {
         background:'#FFFFFF',
         padding: 5,
         margin: '8px 10px 10px 10px',
-        width: '16%'
-
+        width: '16%',
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
 
     }
-})
+}));
 
 const Home = () => {
     const classes = useStyle();
@@ -46,7 +53,7 @@ const Home = () => {
             <Box className = {classes.component}>
             <Banner />
             <Box  style = {{display:'flex'}}>
-                <Box style ={{width: '83%'}}>
+                <Box style ={{width: '83%'}} className={classes.leftwrapper}>
                     <Slide 
                         timer={true}
                         title="Deal of the Day"

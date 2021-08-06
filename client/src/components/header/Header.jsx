@@ -3,8 +3,8 @@ import { AppBar, Toolbar, makeStyles, Box, Typography, withStyles, IconButton, D
 import { Link } from 'react-router-dom';
 import CustomButtons from './CustomButtons';
 import Search from './SearchBar';
-// import { Menu } from '@material-ui/icons';
-// import { useState } from 'react';
+import { Menu } from '@material-ui/icons';
+import { useState } from 'react';
 
 
 const useStyle = makeStyles(theme => ({
@@ -19,7 +19,9 @@ const useStyle = makeStyles(theme => ({
         textDecoration: 'none'
     },
     logo: {
-        width: 75
+        fontSize: 20,
+        fontWeight:600,
+        fontStyle:'italic'
     },
     container: {
         display: 'flex',
@@ -27,7 +29,8 @@ const useStyle = makeStyles(theme => ({
     subHeading: {
         fontSize: 10,
         fontStyle: 'italic',
-        color: '#FFE500'
+        color: '#FFE500',
+        fontWeight: 600
     },
     subURL: {
         width: 10,
@@ -59,34 +62,32 @@ const ToolBar = withStyles({
 
 const Header = () => {
     const classes = useStyle();
-    const logoURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png';
-    const subURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png';
+    
+    const [open, setOpen] = useState(false);
 
-    // const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
 
-    // const handleClose = () => {
-    //     setOpen(false);
-    // }
+    const handleOpen = () => {
+        setOpen(true);
+    }
 
-    // const handleOpen = () => {
-    //     setOpen(true);
-    // }
-
-    // const list = () => (
-    //     <Box className={classes.list} onClick={handleClose}>
-    //         <List>
-    //             <listItem button>
-    //                 <CustomButtons />
-    //             </listItem>
-    //         </List>
-    //     </Box>
-    // );
+    const list = () => (
+        <Box className={classes.list} onClick={handleClose}>
+            <List>
+                <listItem button>
+                    <CustomButtons />
+                </listItem>
+            </List>
+        </Box>
+    );
 
 
     return (
         <AppBar position="fixed" className={classes.header}>
             <ToolBar>
-                {/* <IconButton
+                <IconButton
                     color="inherit"
                     className={classes.menuButton}
                     onClick={handleOpen}
@@ -96,19 +97,17 @@ const Header = () => {
 
                 <Drawer open={open} onClose={handleClose}>
                     {list()}
-                </Drawer> */}
+                </Drawer>
 
                  <Link to='/' className={classes.component}> 
                 
-                    <img src={logoURL} className={classes.logo} />
+                    <Typography className={classes.logo} >Foreqe</Typography>
                     <Box component="span" className={classes.container}>
-                        <Typography className = {classes.subHeading}>Explore <Box component="span" style={{color:'#FFE500'}}>Plus</Box></Typography>
-                        <img src={subURL} className={classes.subURL} />
+                        <Typography className = {classes.subHeading}>One <Box component="span" style={{color:'#FFE500'}}>Solution</Box></Typography>
                     </Box>
                 </Link>
                 <Search />
-                <CustomButtons/>
-                {/* <span className={classes.customButtons}><CustomButtons /></span> */}
+                <span className={classes.customButtons}><CustomButtons /></span>
             </ToolBar>
         </AppBar>
     )

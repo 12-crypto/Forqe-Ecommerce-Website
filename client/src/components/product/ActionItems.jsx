@@ -18,8 +18,8 @@ const useStyle = makeStyles(theme => ({
     },
     Image: {
         padding: '15px 20px',
-        border: '1px solid #f0f0f0',
-         width: '85%'
+        //border: '1px solid #f0f0f0',
+         width: '95%'
     },
     button: {
         width: '46%',

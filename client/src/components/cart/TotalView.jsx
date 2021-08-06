@@ -4,8 +4,8 @@ import clsx from 'clsx';
 
 const useStyle = makeStyles({
     component: {
-         width: '30%',
-         marginLeft: 10,
+        // width: '30%',
+        // marginLeft: 10,
 
     },
     header: {

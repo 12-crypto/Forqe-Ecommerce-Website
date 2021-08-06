@@ -22,15 +22,15 @@ const responsive = {
     }
 };
 
-const useStyle = makeStyles ({
+const useStyle = makeStyles (theme=>({
     component:{
         marginTop: 12,
-        background: '#fff'
-
+        background: '#fff',
+        
     },
     
     image: {
-        
+        width:'auto',
         height: 150
     },
     deal: {
@@ -49,7 +49,8 @@ const useStyle = makeStyles ({
        marginLeft: 10,
        display: 'flex',
        alignItems:'center',
-       },
+       
+    },
     button: {
         marginLeft: 'auto',
         background: 'black',
@@ -64,11 +65,16 @@ const useStyle = makeStyles ({
         fontSize: 14,
         marginTop: 5
     },
+    timer:{
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+                }
+    }
     
     
     
     
-})
+}));
 
 
 
@@ -85,13 +91,14 @@ const Slide = ({timer, title, products}) => {
             <Box className={classes.deal}>
             <Typography className={classes.dealText}>{title}</Typography>
                {
-                   timer && 
-                    <>
-                    <img src = {timerURL} style={{width : 24}}/>
-                    <Countdown date={Date.now() + 5.04e+7} renderer={renderer}/>,
-                    <Button variant="contained" color="secondary" className={classes.button}>View All</Button>
-                    </>
+                   timer && <Box className={classes.timer}>
+                    
+                    <img src = {timerURL} style={{width : 24}} alt='time clock'/>
+                    <Countdown date={Date.now() + 5.04e+7} renderer={renderer} className={classes.timer}/>,
+                    </Box>      
+                    
                 }
+                <Button variant="contained" color="secondary" className={classes.button}>View All</Button>
             </Box>
             <Divider/>
             <Carousel
@@ -104,7 +111,7 @@ const Slide = ({timer, title, products}) => {
                 autoPlaySpeed={10000}
                 keyBoardControl={true} 
                 showDots={false}
-                removeArrowOnDeviceType={"tablet","mobile"}
+            //  removeArrowOnDeviceType={"tablet","mobile"}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
                 containerClass="carousel-container"

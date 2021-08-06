@@ -1,4 +1,4 @@
-import { Box,makeStyles, TableBody, Typography,TableCell,Table, TableRow } from "@material-ui/core";
+import { Box,makeStyles, TableBody, Typography,TableCell,Table, TableRow,Grid,CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 //import products from "../../../../server/model/productSchema.js";
@@ -15,7 +15,7 @@ const useStyle = makeStyles(theme=>({
     },
     container: {
         background: '#FFFFFF',
-        margin: '0 80px',
+        //margin: '0 80px',
         display: 'flex',
         [theme.breakpoints.down('md')]: {
             margin: 0
@@ -70,11 +70,11 @@ const DetailView= ({ match }) => {
     return (
         <Box className={classes.component}>
             { product && Object.keys(product).length &&
-            <Box className={classes.container}>
-                <Box style={{minWidth:'40%'}}>
+            <Grid container className={classes.container}>
+                <Grid item lg={4} md={4} sm={8} xs={12}>
                     <ActionItems product={product}/>
-                </Box>
-                <Box className = {classes.rightContainer}>
+                </Grid>
+                <Grid item lg={8} md={8} sm={8} xs={12} className={classes.rightContainer}>
                     <Typography>{product.title.longTitle}</Typography>
                     <Typography className={clsx(classes.greyTextColor, classes.smallText)} style={{marginTop: 5}}>
                             8 Ratings & 2 Reviews
@@ -125,8 +125,8 @@ const DetailView= ({ match }) => {
                         </TableBody>
                     </Table>
 
-                </Box>
-             </Box> 
+                </Grid>
+             </Grid> 
         }       
         </Box>
     )
